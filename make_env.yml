@@ -1,0 +1,11 @@
+name: detection_api
+channels:
+    - conda_forge
+dependencies:
+    - python=3.8.*
+    - numpy
+    - pandas
+    - pip:
+        - fastapi
+        - uvicorn
+    
