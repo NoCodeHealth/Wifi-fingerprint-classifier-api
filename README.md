@@ -38,20 +38,24 @@ test_request.py :
 ### using the api remotely
 
 Server URL:
-ec2-18-219-8-226.us-east-2.compute.amazonaws.com
+`ec2-18-219-8-226.us-east-2.compute.amazonaws.com:5000`
 
 main endpoint:
-/data_in (protected by API key - askk authors for access)
+`/data_in` (protected by API key - askk authors for access)
 
 docs:
-/docs (unprotected for the duration of judging period,
+`/docs` (unprotected for the duration of judging period,
 normally protected by API key as well)
 
-#### playing around in-browser
+#### playing around in-browser (If total authentication enabled)
+
+
+Note: as mentioned above, the doc endpoint is currently unprotected.
+
 
 You can play around with it in-browser by going to:
 
-`ec2-18-219-8-226.us-east-2.compute.amazonaws.com/set_auth?key=API_KEY`
+`ec2-18-219-8-226.us-east-2.compute.amazonaws.com:5000/set_auth?key=API_KEY`
 
 Which will drop a cookie in your browser to keep you authenticated for 30
 minutes.(credit to
