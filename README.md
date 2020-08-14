@@ -1,25 +1,72 @@
-# wifi-fingerprint-classification
+# Wifi-fingerprint-classifier-api 
+
+
+This repo contains the full back-end code for the "maskon" project.
+
+The API was built with FastAPI.
+
+The API is capable of taking in data collected from a client Android phone,
+processing it, and returning a classification for the given data
+within about 3 seconds.
+
+files:
+api_demo.py The running api. 
+
+api_working.py  Basically identical to api_demo, but less printouts, and more
+    key protection. 
+
+model_rebuid.py
+    The model_rebuild code showcases the model build steps, however
+    we cannot release the source data at this time.
+    Balanced accuracy (taking into account the imbalance in label groups)
+    is currently at 75%, while f1 score is currently at 95% (due to the imbalance).
+
+trained_io_model.model
+    The production model.
+
+data_proc.py
+    data processing module for user data.
+
+json_logger.py
+    simple logger for user data, which is active only for debugging (currently active)
+
+test_request.py
+    tests a post to the api. Sends the conrtents of 'json_test.json' to the
+    api.
 
 
 ### using the api remotely
 
-The server is now running and widely accessible - go to api_dev branch for
-files.
-
-accessing the pages requires an API key, which for now is stored in plaintext
-in api_working.py. The URL is also there, and here:
+Server URL:
 ec2-18-219-8-226.us-east-2.compute.amazonaws.com
+
+main endpoint:
+/data_in (protected by API key - askk authors for access)
+
+docs:
+/docs (unprotected for the duration of judging period,
+normally protected by API key as well)
 
 #### playing around in-browser
 
 You can play around with it in-browser by going to:
 
-ec2-18-219-8-226.us-east-2.compute.amazonaws.com/set_auth?key=[[the key from the python file]]
+ec2-18-219-8-226.us-east-2.compute.amazonaws.com/set_auth?key=API_KEY
 
-and then going to ec2-18-219-8-226.us-east-2.compute.amazonaws.com/docs
+Which will drop a cookie in your browser to keep you authenticated for 30
+minutes.(credit to
+https://medium.com/data-rebels/fastapi-authentication-revisited-enabling-api-key-authentication-122dc5975680
+for the bulk of this slick API-Key code)
 
-The api endpoints should work within the docs, you should be authenticated (I
-haven't tested it)
+
+You can then go to ec2-18-219-8-226.us-east-2.compute.amazonaws.com/docs
+to test the endpoints in-browser.
+
+To test data_in:
+click 'data_in', click 'try it out', paste into the 'Request Body' field the json found in the json_test text file.
+
+It should return "True"
+
 
 When you're done with your session, go to /logout to delete the authentication
 cookie.
@@ -37,13 +84,9 @@ header, and you should see {predicted_indoor_state: true} as a response.
 
 ### running the api locally
 
-To use:
-
-checkout branch api_dev
-
-There are a lot of jupyter notebook files in here that you can ignore to run the API.
 
 Using the first steps from the fastapi tutorial: https://fastapi.tiangolo.com/tutorial/first-steps/
+
 in terminal:
   ```
   pip install fastapi
@@ -56,26 +99,8 @@ in terminal:
 ```
 uvicorn api_working:app --host 0.0.0.0 --port 5000 --reload
 ```
-  
-To test with manual input:
-
-go to the docs page, which should be http://127.0.0.1:8000/docs
-
-click 'data_in', click 'try it out', paste into the 'Request Body' field the json found in the json_test text file.
-
-It should return "True"
 
 
-
-
-
-TODO
-
-#### test with our own data
-stub
-
-#### sidenote: detecting when user is at home
-
-As a side note, we can deal with the problem of not alerting people to mask up when they walk into their homes by having them register the name of the wifi AP (the colloqial SSID, not the BSSIC mac address). When this is detected, the alert system will shut off, and the pinging system will go into stasis mode for power saving (polling the wifi once every 5 minutes or so, until the ssid is not detected, perhaps twice in a row).
-
-
+Thanks for checking this out!
+Please let us know if you have any questions, or would like an API key
+to test it yourself.
