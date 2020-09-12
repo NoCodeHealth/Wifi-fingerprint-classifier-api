@@ -6,6 +6,7 @@ from typing import Optional
 import pickle
 import secrets
 import json
+from pprint import pprint
 '''custom imports'''
 import data_proc
 from json_logger import logger
@@ -77,6 +78,7 @@ async def predict(request: Request, data: Data,api_key: APIKey = Depends(get_api
     processed_data = data_proc.process_input(input_array)
     pred = trained_model.predict(processed_data)
     output_pred = str(pred[0])
+    ret =  {"predicted_indoor_state": output_pred}
     if DEBUG:
         await logger(data.received_array, output_pred, request.client.host)
     if LIVE_DISPLAY:
@@ -88,7 +90,7 @@ async def predict(request: Request, data: Data,api_key: APIKey = Depends(get_api
         pprint(processed_data)
         print('the below array is returned to the client:')
         print(ret)
-    return {"predicted_indoor_state": output_pred}
+    return ret
 
 '''thats all folks'''
 
@@ -109,14 +111,6 @@ async def get_open_api_endpoint():
 @app.get("/docs", tags=["documentation"])
 async def get_documentation():
     response = get_swagger_ui_html(openapi_url="/openapi.json", title="docs")
-    response.set_cookie(
-        API_KEY_NAME,
-        value=api_key,
-        domain=COOKIE_DOMAIN,
-        httponly=True,
-        max_age=1800,
-        expires=1800,
-    )
     return response
 
 @app.get("/set_auth")
