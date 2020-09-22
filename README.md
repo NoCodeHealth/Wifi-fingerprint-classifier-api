@@ -4,6 +4,7 @@
 This repo contains the full back-end code for the "maskon" project. 
 Project submission page here: https://hclbetterhealth-platform.bemyapp.com/#/projects/5f05cf8b980296001bf00b56
 
+UPDATE: The API is currently offline.
 
 
 The API was built with FastAPI.
@@ -44,7 +45,7 @@ Server URL:
 `ec2-18-219-8-226.us-east-2.compute.amazonaws.com:5000`
 
 main endpoint:
-`/data_in` (protected by API key - askk authors for access)
+`/data_in` (protected by API key - ask authors for access)
 
 docs:
 `/docs` (unprotected for the duration of judging period,
