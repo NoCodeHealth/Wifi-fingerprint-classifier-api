@@ -1,7 +1,10 @@
 # Wifi-fingerprint-classifier-api 
 
 
-This repo contains the full back-end code for the "maskon" project.
+This repo contains the full back-end code for the "maskon" project. 
+Project submission page here: https://hclbetterhealth-platform.bemyapp.com/#/projects/5f05cf8b980296001bf00b56
+
+
 
 The API was built with FastAPI.
 
